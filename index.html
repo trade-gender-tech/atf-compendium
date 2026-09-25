@@ -416,12 +416,12 @@
   @keyframes cs-car-scroll-rev { 0% { transform: translateX(-33.33%); } 100% { transform: translateX(0); } }
 
   /* ── How to Use ── */
-  .cs-howto { display: flex; align-items: flex-start; gap: 0; margin-top: 18px; }
-  .cs-howto-step { flex: 1; display: flex; gap: 12px; padding: 16px; background: #f6f6f6; border-radius: 8px; border: 1px solid #e0e0e0; }
-  .cs-howto-n { width: 32px; height: 32px; border-radius: 50%; background: #D9A441; color: #fff; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-  .cs-howto-title { font-size: 13px; font-weight: 700; color: #1a2e3b; margin-bottom: 4px; }
+  .cs-howto { display: flex; align-items: stretch; gap: 0; margin-top: 18px; }
+  .cs-howto-step { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 22px 14px; background: #f6f6f6; border-radius: 8px; border: 1px solid #e0e0e0; flex: 1; }
+  .cs-howto-n { width: 36px; height: 36px; border-radius: 50%; background: #D9A441; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .cs-howto-title { font-size: 13px; font-weight: 700; color: #1a2e3b; margin-bottom: 2px; }
   .cs-howto-desc  { font-size: 12px; color: #3a5060; line-height: 1.6; }
-  .cs-howto-arr   { padding: 0 10px; color: #D9A441; font-size: 24px; align-self: center; flex-shrink: 0; }
+  .cs-howto-arr   { display: flex; align-items: center; justify-content: center; color: #D9A441; font-size: 22px; font-weight: 300; padding: 0 8px; flex-shrink: 0; }
 
     /* ── Explore compendium button ── */
   .cs-explore-wrap { text-align: center; padding: 36px 0 52px; background: #fff; border-top: 1px solid #e5e5e5; }
@@ -568,9 +568,9 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
 
       <div class="cs-dl-row">
-        <a href="downloads/financial_inclusion_initiatives.xlsx" class="cs-dl" download="ATF_Compendium_Data.xlsx">Download Excel Data</a>
+        <a href="https://ecourtsawsdata.blob.core.windows.net/devapp6changes/wto-trade-gender/web-team/financial_inclusion_initiatives_REVISED.xlsx?sv=2026-02-06&ss=bfqt&srt=co&sp=rwdlacupiytfx&se=2030-08-09T22:00:00Z&st=2026-08-09T18:57:27Z&spr=https&sig=Z0gK1i8v37lLChtFqUARKoL5uNdGIHA7gQoOPRJTndU%3D" class="cs-dl" download="ATF_Compendium_Data.xlsx">Download Excel Data</a>
         <div class="cs-dl-mid">
-          <a href="downloads/Access_to_Finance_MSMEs_Compendium_WTO_ITC.docx" class="cs-dl cs-dl-doc" download="ATF_Compendium_WTO_ITC.docx" data-ttip="Access to Finance for Women-led MSMEs &#8212; WTO/ITC Compendium (INF/TGE/W/7/Rev.3)">Compendium Document</a>
+          <a href="https://ecourtsawsdata.blob.core.windows.net/devapp6changes/wto-trade-gender/web-team/Access_to_Finance_MSMEs_Compendium_WTO_ITC.docx?sv=2026-02-06&ss=bfqt&srt=co&sp=rwdlacupiytfx&se=2030-08-09T22:00:00Z&st=2026-08-09T18:57:27Z&spr=https&sig=Z0gK1i8v37lLChtFqUARKoL5uNdGIHA7gQoOPRJTndU%3D" class="cs-dl cs-dl-doc" download="ATF_Compendium_WTO_ITC.docx" data-ttip="Access to Finance for Women-led MSMEs &#8212; WTO/ITC Compendium (INF/TGE/W/7/Rev.3)">Compendium Document</a>
         </div>
         <button class="cs-dl-explore" id="btnExploreAtfTop">Explore Compendium &#9660;</button>
       </div>
@@ -817,23 +817,31 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="cs-howto-n">1</div>
         <div>
           <div class="cs-howto-title">Filter</div>
-          <div class="cs-howto-desc">Use the dropdowns to narrow by Region, Country, Organisation Type, Intervention Type, Sector Focus, or Status</div>
+          <div class="cs-howto-desc">Use the dropdowns to narrow by Region, Country, Organisation Type, Intervention Type, Sector Focus, or Status. Combine multiple filters at once; clear all with the Reset button.</div>
         </div>
       </div>
       <div class="cs-howto-arr">&#8594;</div>
       <div class="cs-howto-step">
         <div class="cs-howto-n">2</div>
         <div>
-          <div class="cs-howto-title">Expand rows</div>
-          <div class="cs-howto-desc">Click the green <strong>+</strong> on any row to read the full Description, Intervention Type, Beneficiary Profile, and Organisation details</div>
+          <div class="cs-howto-title">Search &amp; sort</div>
+          <div class="cs-howto-desc">Type any keyword in the search bar to instantly filter across all columns. Click any column header to sort ascending or descending. Use the Show entries selector to display 25, 50, or 100 rows per page.</div>
         </div>
       </div>
       <div class="cs-howto-arr">&#8594;</div>
       <div class="cs-howto-step">
         <div class="cs-howto-n">3</div>
         <div>
-          <div class="cs-howto-title">Search</div>
-          <div class="cs-howto-desc">Type any keyword in the search bar to filter across all columns instantly</div>
+          <div class="cs-howto-title">Switch views</div>
+          <div class="cs-howto-desc">Toggle between <strong>table view</strong> (&#9776;) for a structured column layout and <strong>card view</strong> (&#9638;) for a more visual, card-per-entry format. Both views share the same filters, search, and pagination.</div>
+        </div>
+      </div>
+      <div class="cs-howto-arr">&#8594;</div>
+      <div class="cs-howto-step">
+        <div class="cs-howto-n">4</div>
+        <div>
+          <div class="cs-howto-title">Expand for full detail</div>
+          <div class="cs-howto-desc">In table view, click the <strong>+</strong> on any row to read the full Description, Intervention Type, Beneficiary Profile, and Organisation details. In card view, click <strong>Read more &rsaquo;</strong> to expand the entry description.</div>
         </div>
       </div>
     </div>
