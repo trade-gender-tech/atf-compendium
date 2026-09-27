@@ -207,13 +207,14 @@
     #dataTable.dataTable thead th.sorting_asc::after,
     #dataTable.dataTable thead th.sorting_desc::after { color: rgba(255,255,255,0.6); }
 
-    /* DataTables Responsive expand button — green + / red - aligned with first line of text */
+    /* Dedicated expand-button column (col 0) — isolated from Country/Institution text */
+    #dataTable.dataTable thead th:first-child,
+    table.dataTable.dtr-inline.collapsed > tbody > tr:not(.child) > td:first-child {
+      width: 34px !important; text-align: center; padding: 10px 6px !important;
+    }
     table.dataTable.dtr-inline.collapsed > tbody > tr:not(.child) > td:first-child {
       position: sticky !important; left: 0 !important; z-index: 5 !important;
-      padding-left: 34px !important; background: #fff;
-    }
-    table.dataTable.dtr-inline.collapsed > tbody > tr.main-row:hover > td:first-child {
-      background: #f7f3e8;
+      background: #fff; vertical-align: top;
     }
     table.dataTable.dtr-inline.collapsed > tbody > tr.child > td {
       position: static !important;
@@ -225,8 +226,8 @@
       width: 20px !important; height: 20px !important; line-height: 20px !important;
       font-size: 14px !important; font-weight: 700 !important;
       text-align: center !important; box-shadow: none !important;
-      content: '+' !important; 
-      position: absolute !important; left: 8px !important; top: 5px !important;
+      content: '+' !important;
+      position: static !important; display: inline-block !important;
       margin-top: 0 !important;
     }
     table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child::before,
@@ -956,6 +957,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <table class="table table-bordered table-condensed responsive" id="dataTable">
         <thead>
           <tr>
+            <th></th>
             <th>Country / Institution</th>
             <th>Initiative Name</th>
             <th>Region</th>
@@ -1062,6 +1064,7 @@ $.getJSON('data.json', function(jsonData) {
 
   var rows = DB.map(function(r) {
     return [
+      '',
       r.country, r.name,
       tagHtml(r.region, 'region'),
       tagHtml(r.sector, 'sector'),
@@ -1078,8 +1081,9 @@ $.getJSON('data.json', function(jsonData) {
     pageLength: 25,
     dom: 'rtip',
     columnDefs: [
-      { targets: [2, 3, 4, 5, 6], type: 'html' },
-      { targets: [9, 10, 11], className: 'none' }
+      { targets: 0, orderable: false, searchable: false, width: '34px' },
+      { targets: [3, 4, 5, 6, 7], type: 'html' },
+      { targets: [10, 11, 12], className: 'none' }
     ],
     language: {
       info:         'Showing _START_ to _END_ of _TOTAL_ initiatives',
@@ -1109,15 +1113,15 @@ $.getJSON('data.json', function(jsonData) {
 
   /* Filter dropdowns — treat __all__ as no filter */
   function fval($sel) { var v = $sel.val(); return v === '__all__' ? '' : (v || ''); }
-  $('#f-region')      .on('changed.bs.select', function() { colSearch(2, fval($(this))); });
-  $('#f-sector')      .on('changed.bs.select', function() { colSearch(3, fval($(this))); });
-  $('#f-beneficiary') .on('changed.bs.select', function() { colSearch(4, fval($(this))); });
+  $('#f-region')      .on('changed.bs.select', function() { colSearch(3, fval($(this))); });
+  $('#f-sector')      .on('changed.bs.select', function() { colSearch(4, fval($(this))); });
+  $('#f-beneficiary') .on('changed.bs.select', function() { colSearch(5, fval($(this))); });
   $('#f-status')      .on('changed.bs.select', function() {
     $('#chk-active').prop('checked', false);
-    colSearch(5, fval($(this)));
+    colSearch(6, fval($(this)));
   });
-  $('#f-intervention').on('changed.bs.select', function() { colSearch(6, fval($(this))); });
-  $('#f-country')     .on('changed.bs.select', function() { colSearch(0, fval($(this))); });
+  $('#f-intervention').on('changed.bs.select', function() { colSearch(7, fval($(this))); });
+  $('#f-country')     .on('changed.bs.select', function() { colSearch(1, fval($(this))); });
 
   /* Keyword search */
   $('#keywordInput').on('input', function() { 
@@ -1130,9 +1134,9 @@ $.getJSON('data.json', function(jsonData) {
   $('#chk-active').on('change', function() {
     if ($(this).is(':checked')) {
       $('#f-status').selectpicker('val', '__all__');
-      goodTable.column(5).search('Active', false, false).draw();
+      goodTable.column(6).search('Active', false, false).draw();
     } else {
-      goodTable.column(5).search('').draw();
+      goodTable.column(6).search('').draw();
     }
   });
 
